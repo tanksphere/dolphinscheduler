@@ -27,8 +27,6 @@ import org.apache.dolphinscheduler.plugin.datasource.hive.security.UserGroupInfo
 import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 import org.apache.dolphinscheduler.spi.enums.DbType;
 
-import sun.security.krb5.Config;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
@@ -59,11 +57,11 @@ public class HivePooledDataSourceClient extends BasePooledDataSourceClient {
         if (kerberosStartupState && StringUtils.isNotBlank(krb5File)) {
             System.setProperty(JAVA_SECURITY_KRB5_CONF, krb5File);
             try {
-                Config.refresh();
+//                Config.refresh();
                 Class<?> kerberosName = Class.forName("org.apache.hadoop.security.authentication.util.KerberosName");
                 Field field = kerberosName.getDeclaredField("defaultRealm");
                 field.setAccessible(true);
-                field.set(null, Config.getInstance().getDefaultRealm());
+//                field.set(null, Config.getInstance().getDefaultRealm());
             } catch (Exception e) {
                 throw new RuntimeException("Update Kerberos environment failed.", e);
             }

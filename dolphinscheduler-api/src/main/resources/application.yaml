@@ -32,11 +32,11 @@ server:
 
 spring:
   profiles:
-    active: postgresql
+    active: mysql
   banner:
     charset: UTF-8
   jackson:
-    time-zone: UTC
+    time-zone: GMT+8
     date-format: "yyyy-MM-dd HH:mm:ss"
   servlet:
     multipart:
@@ -45,10 +45,10 @@ spring:
   messages:
     basename: i18n/messages
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:5432/dolphinscheduler
-    username: root
-    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dolphinscheduler
+    username: dolphinscheduler
+    password: dolphinscheduler
     hikari:
       connection-test-query: select 1
       minimum-idle: 5
@@ -248,8 +248,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/dolphinscheduler
-    username: root
-    password: root
+    username: dolphinscheduler
+    password: dolphinscheduler
   quartz:
     properties:
       org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate

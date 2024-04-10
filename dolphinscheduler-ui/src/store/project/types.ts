@@ -32,6 +32,7 @@ type TaskType =
   | 'PYTHON'
   | 'DEPENDENT'
   | 'HTTP'
+  | 'HTTPX'
   | 'DATAX'
   | 'PIGEON'
   | 'SQOOP'

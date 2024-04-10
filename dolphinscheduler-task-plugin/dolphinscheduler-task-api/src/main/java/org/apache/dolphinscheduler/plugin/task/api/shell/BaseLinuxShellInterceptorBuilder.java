@@ -58,6 +58,10 @@ public abstract class BaseLinuxShellInterceptorBuilder<T extends BaseLinuxShellI
         finalScripts.add(shellBody());
         // create shell file
         String finalScript = finalScripts.stream().collect(Collectors.joining(System.lineSeparator()));
+        if (finalScript.contains("${PYTHON_LAUNCHER}")) {
+            log.info("finalScript replace PYTHON_LAUNCHER to local python path");
+            finalScript = finalScript.replace("${PYTHON_LAUNCHER}", "/usr/local/homebrew/bin/python3");
+        }
         Path shellAbsolutePath = shellAbsolutePath();
         FileUtils.createFileWith755(shellAbsolutePath);
         Files.write(shellAbsolutePath, finalScript.getBytes(), StandardOpenOption.APPEND);

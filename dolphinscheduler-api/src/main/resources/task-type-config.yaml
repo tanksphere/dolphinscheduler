@@ -25,6 +25,7 @@ task:
     - 'SPARK'
     - 'FLINK'
     - 'HTTP'
+    - 'HTTPX'
     - 'MR'
     - 'DINKY'
     - 'FLINK_STREAM'

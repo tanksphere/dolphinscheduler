@@ -35,7 +35,8 @@ public class PytorchParameters extends AbstractParameters {
     private String pythonPath = ".";
     private String script;
     private String scriptParams;
-    private String pythonLauncher = "${PYTHON_LAUNCHER}";
+    // private String pythonLauncher = "${PYTHON_LAUNCHER}";
+    private String pythonLauncher = "/usr/local/homebrew/bin/python3";
     private String pythonEnvTool = PythonEnvManager.ENV_TOOL_VENV;
     private String requirements = "requirements.txt";
     private String condaPythonVersion = "3.9";

@@ -24,6 +24,7 @@ import { usePython } from './use-python'
 import { useSpark } from './use-spark'
 import { useMr } from './use-mr'
 import { useHttp } from './use-http'
+import { useHttpx } from './use-httpx'
 import { useSql } from './use-sql'
 import { useProcedure } from './use-procedure'
 import { useSqoop } from './use-sqoop'
@@ -63,6 +64,7 @@ export default {
   MR: useMr,
   FLINK: useFlink,
   HTTP: useHttp,
+  HTTPX: useHttpx,
   PIGEON: usePigeon,
   SQL: useSql,
   PROCEDURE: useProcedure,

@@ -135,6 +135,9 @@ $bgLight: #ffffff;
     &.icon-http {
       background-image: url('/images/task-icons/http.png');
     }
+    &.icon-httpx {
+      background-image: url('/images/task-icons/httpx.png');
+    }
     &.icon-datax {
       background-image: url('/images/task-icons/datax.png');
     }
@@ -250,6 +253,9 @@ $bgLight: #ffffff;
       }
       &.icon-http {
         background-image: url('/images/task-icons/http_hover.png');
+      }
+      &.icon-httpx {
+        background-image: url('/images/task-icons/httpx_hover.png');
       }
       &.icon-datax {
         background-image: url('/images/task-icons/datax_hover.png');

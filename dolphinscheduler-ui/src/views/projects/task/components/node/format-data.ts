@@ -94,6 +94,16 @@ export function formatParams(data: INodeData): {
     taskParams.connectTimeout = data.connectTimeout
     taskParams.socketTimeout = data.socketTimeout
   }
+  if (data.taskType === 'HTTPX') {
+    taskParams.httpMethod = data.httpMethod
+    taskParams.httpBody = data.httpBody
+    taskParams.httpCheckCondition = data.httpCheckCondition
+    taskParams.httpParams = data.httpParams
+    taskParams.url = data.url
+    taskParams.condition = data.condition
+    taskParams.connectTimeout = data.connectTimeout
+    taskParams.socketTimeout = data.socketTimeout
+  }
 
   if (data.taskType === 'SQOOP') {
     taskParams.jobType = data.isCustomTask ? 'CUSTOM' : 'TEMPLATE'

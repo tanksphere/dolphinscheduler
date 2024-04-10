@@ -26,6 +26,7 @@ export type TaskType =
   | 'PYTHON'
   | 'DEPENDENT'
   | 'HTTP'
+  | 'HTTPX'
   | 'DATAX'
   | 'PIGEON'
   | 'SQOOP'
@@ -93,6 +94,9 @@ export const TASK_TYPES_MAP = {
   },
   HTTP: {
     alias: 'HTTP'
+  },
+  HTTPX: {
+    alias: 'HTTPX'
   },
   DATAX: {
     alias: 'DataX'

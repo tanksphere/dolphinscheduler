@@ -165,6 +165,8 @@ public class PythonTask extends AbstractTask {
         log.info("raw python script : {}", pythonParameters.getRawScript());
         String rawPythonScript = pythonParameters.getRawScript().replaceAll("\\r\\n", System.lineSeparator());
         Map<String, Property> paramsMap = mergeParamsWithContext(pythonParameters);
+        rawPythonScript = rawPythonScript.replace("${PYTHON_LAUNCHER}", "/usr/local/homebrew/bin/python3");
+        log.info("new raw  python script: {}", rawPythonScript);
         return ParameterUtils.convertParameterPlaceholders(rawPythonScript, ParameterUtils.convert(paramsMap));
     }
 
@@ -184,7 +186,8 @@ public class PythonTask extends AbstractTask {
     protected String buildPythonExecuteCommand(String pythonFile) {
         Preconditions.checkNotNull(pythonFile, "Python file cannot be null");
 
-        String pythonHome = String.format("${%s}", PYTHON_LAUNCHER);
+//        String pythonHome = String.format("${%s}", PYTHON_LAUNCHER);
+        String pythonHome = "/usr/local/homebrew/bin/python3";
 
         return pythonHome + " " + pythonFile;
     }
