@@ -61,12 +61,12 @@ public class MasterServerLoadProtection {
                     systemMetrics.getDiskUsedPercentage(), maxCpuUsagePercentageThresholds);
             return true;
         }
-        if (systemMetrics.getSystemMemoryUsedPercentage() > maxSystemMemoryUsagePercentageThresholds) {
-            log.info(
-                    "Master OverLoad: the SystemMemoryUsedPercentage: {} is over then the MaxSystemMemoryUsagePercentageThresholds {}",
-                    systemMetrics.getSystemMemoryUsedPercentage(), maxSystemMemoryUsagePercentageThresholds);
-            return true;
-        }
+//        if (systemMetrics.getSystemMemoryUsedPercentage() > maxSystemMemoryUsagePercentageThresholds) {
+//            log.info(
+//                    "Master OverLoad: the SystemMemoryUsedPercentage: {} is over then the MaxSystemMemoryUsagePercentageThresholds {}",
+//                    systemMetrics.getSystemMemoryUsedPercentage(), maxSystemMemoryUsagePercentageThresholds);
+//            return true;
+//        }
         return false;
     }
 
