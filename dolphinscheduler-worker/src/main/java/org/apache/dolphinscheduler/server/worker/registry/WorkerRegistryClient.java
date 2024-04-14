@@ -92,11 +92,11 @@ public class WorkerRegistryClient implements AutoCloseable {
 
     private void registry() throws InterruptedException {
         WorkerHeartBeat workerHeartBeat = workerHeartBeatTask.getHeartBeat();
-        while (ServerStatus.BUSY.equals(workerHeartBeat.getServerStatus())) {
-            log.warn("Worker node is BUSY: {}", workerHeartBeat);
-            workerHeartBeat = workerHeartBeatTask.getHeartBeat();
-            Thread.sleep(SLEEP_TIME_MILLIS);
-        }
+//        while (ServerStatus.BUSY.equals(workerHeartBeat.getServerStatus())) {
+//            log.warn("Worker node is BUSY: {}", workerHeartBeat);
+//            workerHeartBeat = workerHeartBeatTask.getHeartBeat();
+//            Thread.sleep(SLEEP_TIME_MILLIS);
+//        }
         String workerZKPath = workerConfig.getWorkerRegistryPath();
         // remove before persist
         registryClient.remove(workerZKPath);

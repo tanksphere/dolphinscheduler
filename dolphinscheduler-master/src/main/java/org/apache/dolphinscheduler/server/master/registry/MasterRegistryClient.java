@@ -159,11 +159,11 @@ public class MasterRegistryClient implements AutoCloseable {
         String masterRegistryPath = masterConfig.getMasterRegistryPath();
 
         MasterHeartBeat heartBeat = masterHeartBeatTask.getHeartBeat();
-        while (ServerStatus.BUSY.equals(heartBeat.getServerStatus())) {
-            log.warn("Master node is BUSY: {}", heartBeat);
-            heartBeat = masterHeartBeatTask.getHeartBeat();
-            ThreadUtils.sleep(SLEEP_TIME_MILLIS);
-        }
+//        while (ServerStatus.BUSY.equals(heartBeat.getServerStatus())) {
+//            log.warn("Master node is BUSY: {}", heartBeat);
+//            heartBeat = masterHeartBeatTask.getHeartBeat();
+//            ThreadUtils.sleep(SLEEP_TIME_MILLIS);
+//        }
 
         // remove before persist
         registryClient.remove(masterRegistryPath);

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!--
+          ~ Licensed to the Apache Software Foundation (ASF) under one or more
+          ~ contributor license agreements.  See the NOTICE file distributed with
+          ~ this work for additional information regarding copyright ownership.
+          ~ The ASF licenses this file to You under the Apache License, Version 2.0
+          ~ (the "License"); you may not use this file except in compliance with
+          ~ the License.  You may obtain a copy of the License at
+          ~
+          ~     http://www.apache.org/licenses/LICENSE-2.0
+          ~
+          ~ Unless required by applicable law or agreed to in writing, software
+          ~ distributed under the License is distributed on an "AS IS" BASIS,
+          ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+          ~ See the License for the specific language governing permissions and
+          ~ limitations under the License.
+          -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.apache.dolphinscheduler.dao.mapper.ConnectionDefinitionMapper">
+    <sql id="baseSql">
+        id, name, project_code, type, url, http_method, http_content_type, http_request_data_format, http_params, http_body,
+        http_check_condition, user_id, version, description, flag, timeout, create_time, update_time
+    </sql>
+    <update id="updateSelectiveById">
+        update t_ds_connection_definition
+        <set>
+            <if test="et.name != null">
+                name = #{et.name},
+            </if>
+            <if test="et.url != null">
+                url = #{et.url},
+            </if>
+            <if test="et.httpMethod != null">
+                http_method = #{et.httpMethod},
+            </if>
+            <if test="et.httpContentType != null">
+                http_content_type = #{et.httpContentType},
+            </if>
+            <if test="et.httpRequestDataFormat != null">
+                http_request_data_format = #{et.httpRequestDataFormat},
+            </if>
+            <if test="et.httpParams != null">
+                http_params = #{et.httpParams},
+            </if>
+            <if test="et.httpBody != null">
+                http_body = #{et.httpBody},
+            </if>
+            <if test="et.httpCheckCondition != null">
+                http_check_condition = #{et.httpCheckCondition},
+            </if>
+            <if test="et.description != null">
+                description = #{et.description},
+            </if>
+        </set>
+        where id = #{et.id}
+    </update>
+    <select id="queryDefineListPaging" resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
+        SELECT
+        <include refid="baseSql"/>
+        FROM t_ds_connection_definition
+        <where>
+            <if test=" userId != 0">
+                AND user_id = #{userId}
+            </if>
+            <if test=" searchVal != null and searchVal != ''">
+                AND (
+                name like concat('%', #{searchVal}, '%') OR description like concat('%', #{searchVal}, '%')
+                )
+            </if>
+        </where>
+        order by update_time desc, id asc
+    </select>
+    <select id="queryDefineListByUserId"
+            resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
+        SELECT
+        <include refid="baseSql"/>
+        FROM t_ds_connection_definition
+        <where>
+            <if test=" userId != 0">
+                AND user_id = #{userId}
+            </if>
+            <if test=" searchVal != null and searchVal != ''">
+                AND (
+                name like concat('%', #{searchVal}, '%') OR description like concat('%', #{searchVal}, '%')
+                )
+            </if>
+        </where>
+        order by update_time desc, id asc
+    </select>
+    <select id="selectByName" resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
+        select <include refid="baseSql" />
+        from t_ds_connection_definition
+        where name = #{name}
+    </select>
+
+</mapper>

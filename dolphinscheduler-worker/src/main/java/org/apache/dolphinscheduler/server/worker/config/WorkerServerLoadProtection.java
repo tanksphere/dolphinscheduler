@@ -61,12 +61,12 @@ public class WorkerServerLoadProtection {
                     systemMetrics.getDiskUsedPercentage(), maxDiskUsagePercentageThresholds);
             return true;
         }
-        if (systemMetrics.getSystemMemoryUsedPercentage() > maxSystemMemoryUsagePercentageThresholds) {
-            log.info(
-                    "Worker OverLoad: the SystemMemoryUsedPercentage: {} is over then the MaxSystemMemoryUsagePercentageThresholds {}",
-                    systemMetrics.getSystemMemoryUsedPercentage(), maxSystemMemoryUsagePercentageThresholds);
-            return true;
-        }
+//        if (systemMetrics.getSystemMemoryUsedPercentage() > maxSystemMemoryUsagePercentageThresholds) {
+//            log.info(
+//                    "Worker OverLoad: the SystemMemoryUsedPercentage: {} is over then the MaxSystemMemoryUsagePercentageThresholds {}",
+//                    systemMetrics.getSystemMemoryUsedPercentage(), maxSystemMemoryUsagePercentageThresholds);
+//            return true;
+//        }
         return false;
     }
 
