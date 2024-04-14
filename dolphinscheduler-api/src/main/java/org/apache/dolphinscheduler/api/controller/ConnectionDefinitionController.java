@@ -17,6 +17,7 @@
 
 package org.apache.dolphinscheduler.api.controller;
 
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -39,6 +40,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -47,6 +49,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 import static org.apache.dolphinscheduler.api.enums.Status.CREATE_CONNECTION_DEFINITION_ERROR;
+import static org.apache.dolphinscheduler.api.enums.Status.TEST_CONNECTION_DEFINITION_ERROR;
 
 @Tag(name = "连接相关操作")
 @RestController
@@ -56,6 +59,17 @@ public class ConnectionDefinitionController extends BaseController {
 
     @Autowired
     private ConnectionDefinitionService connectionDefinitionService;
+
+    @Operation(summary = "testConnection", description = "测试连接")
+    @PostMapping(value = "test", consumes = {"application/json"})
+    @ApiException(TEST_CONNECTION_DEFINITION_ERROR)
+    public Result testConnectionDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                           @RequestBody ConnectionCreateRequest connectionCreateRequest,
+                                           @RequestHeader String Sessionid
+                                           ) {
+        Map<String, Object> result = connectionDefinitionService.testConnectionDefinition(loginUser, connectionCreateRequest);
+        return returnDataList(result);
+    }
 
     @Operation(summary = "saveConnectionDefinition", description = "创建连接")
     @PostMapping(value = "save", consumes = {"application/json"})

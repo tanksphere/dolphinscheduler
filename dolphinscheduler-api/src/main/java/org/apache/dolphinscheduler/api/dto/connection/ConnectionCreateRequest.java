@@ -40,7 +40,7 @@ public class ConnectionCreateRequest {
     private String url;
     @Schema(description = "httpMethod", required = true)
     private HttpMethod httpMethod;
-    @Schema(description = "httpContentType", required = false, requiredProperties={"form-data", "x-www-form-urlencoded"})
+    @Schema(description = "httpContentType", required = false, requiredProperties={"form-data", "x-www-form-urlencoded", "raw"})
     private HttpContentType httpContentType;
     @Schema(description = "httpContentType", required = false, requiredProperties={"json", "xml", "text"})
     private HttpRequestDataFormat requestDataFormat;

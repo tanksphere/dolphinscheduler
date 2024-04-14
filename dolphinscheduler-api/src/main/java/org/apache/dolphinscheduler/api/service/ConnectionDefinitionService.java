@@ -35,6 +35,8 @@ import java.util.Map;
  */
 public interface ConnectionDefinitionService {
 
+    Map<String, Object> testConnectionDefinition(User loginUser, ConnectionCreateRequest request);
+
     Map<String, Object> saveConnectionDefinition(User loginUser, ConnectionCreateRequest request);
 
     /**
