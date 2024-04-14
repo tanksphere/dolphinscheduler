@@ -61,6 +61,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.google.common.base.Strings;
+import org.checkerframework.checker.units.qual.K;
 
 /**
  * json utils
@@ -144,6 +145,19 @@ public final class JSONUtils {
 
         try {
             return objectMapper.readValue(json, clazz);
+        } catch (Exception e) {
+            log.error("Parse object exception, jsonStr: {}, class: {}", json, clazz, e);
+        }
+        return null;
+    }
+
+    public static @Nullable <T> List<T> parseArray(String json, Class<T> clazz) {
+        if (Strings.isNullOrEmpty(json)) {
+            return null;
+        }
+
+        try {
+            return objectMapper.readValue(json, new TypeReference<List<T>>(){});
         } catch (Exception e) {
             log.error("Parse object exception, jsonStr: {}, class: {}", json, clazz, e);
         }

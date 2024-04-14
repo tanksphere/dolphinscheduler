@@ -70,6 +70,7 @@ public class ApiFuncIdentificationConstant {
     public static final String PROJECT_UPDATE = "project:edit";
     public static final String PROJECT_DELETE = "project:delete";
     public static final String WORKFLOW_DEFINITION = "project:definition:list";
+    public static final String CONNECTION_DEFINITION = "connection:definition:list";
     public static final String WORKFLOW_CREATE = "project:definition:create";
     public static final String WORKFLOW_IMPORT = "project:definition:import";
     public static final String WORKFLOW_UPDATE = "project:definition:update";

@@ -585,6 +585,13 @@ public enum Status {
     WORKER_GROUP_DEPENDENT_ENVIRONMENT_EXISTS(1401002,
             "You can not modify or remove this worker group, cause it has [{0}] dependent environments.",
             "不能修改或删除该Worker组，有 [{0}] 个环境配置正在使用"),
+
+    CREATE_CONNECTION_DEFINITION_ERROR(1501000, "create process definition error", "创建连接错误"),
+    CONNECTION_DEFINITION_NAME_EXIST(1501001, "connection definition name {0} already exists", "连接定义名称[{0}]已存在"),
+
+    CONNECTION_DEFINITION_NOT_EXIST(1501002, "connection definition id {0} does not exists", "连接定义id[{0}]不存在"),
+
+    CONNECTION_DEFINITION_UPDATE_ERROR(1501003, "connection definition name {0} update error", "连接定义名称[{0}]更新失败"),
             ;
     private final int code;
     private final String enMsg;
