@@ -17,6 +17,7 @@
 
 package org.apache.dolphinscheduler.api.service.impl;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dolphinscheduler.api.dto.connection.ConnectionCreateRequest;
@@ -28,10 +29,12 @@ import org.apache.dolphinscheduler.api.service.ConnectionDefinitionService;
 import org.apache.dolphinscheduler.api.service.ConnectionEnvDefinitionService;
 import org.apache.dolphinscheduler.api.utils.PageInfo;
 import org.apache.dolphinscheduler.api.utils.Result;
+import org.apache.dolphinscheduler.api.utils.StringUtils;
 import org.apache.dolphinscheduler.common.constants.Constants;
 import org.apache.dolphinscheduler.common.enums.HttpContentType;
 import org.apache.dolphinscheduler.common.enums.HttpMethod;
 import org.apache.dolphinscheduler.common.enums.HttpRequestDataFormat;
+import org.apache.dolphinscheduler.common.utils.DateUtils;
 import org.apache.dolphinscheduler.common.utils.JSONUtils;
 import org.apache.dolphinscheduler.dao.entity.ConnectionDefinition;
 import org.apache.dolphinscheduler.dao.entity.ConnectionEnvDefinition;
@@ -40,11 +43,30 @@ import org.apache.dolphinscheduler.dao.mapper.ConnectionDefinitionMapper;
 import org.apache.dolphinscheduler.dao.mapper.ConnectionEnvDefinitionMapper;
 import org.apache.dolphinscheduler.dao.model.PageListingResult;
 import org.apache.dolphinscheduler.dao.repository.ConnectionDefinitionDao;
+import org.apache.dolphinscheduler.plugin.task.api.TaskException;
+import org.apache.dolphinscheduler.plugin.task.api.model.Property;
+import org.apache.dolphinscheduler.plugin.task.api.utils.ParameterUtils;
+import org.apache.dolphinscheduler.plugin.task.http.HttpParametersType;
+import org.apache.dolphinscheduler.plugin.task.http.HttpProperty;
+import org.apache.http.HttpEntity;
+import org.apache.http.ParseException;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +93,14 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
 
     @Autowired
     private ConnectionDefinitionLogService connectionDefinitionLogService;
+
+    public Map<String, Object> testConnectionDefinition(User loginUser, ConnectionCreateRequest request) {
+        Map<String, Object> result = new HashMap<>();
+
+        result.put(Constants.STATUS, Status.SUCCESS);
+        result.put(Constants.DATA_LIST, testHttpRequest(request));
+        return result;
+    }
 
     @Transactional
     public Map<String, Object> saveConnectionDefinition(User loginUser, ConnectionCreateRequest request) {
@@ -272,5 +302,176 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
             respList.add(new ConnectionCreateRequest.ConnectionEnv(env.getDomain(), env.getEnv(), 0));
         }
         return respList;
+    }
+
+
+    /**                        以下是httpRequest测试请求代码                         **/
+    /**                        以下是httpRequest测试请求代码                         **/
+    /**                        以下是httpRequest测试请求代码                         **/
+
+    public Map<String, Object> testHttpRequest(ConnectionCreateRequest requestDefinition) throws TaskException {
+        Map<String, Object> resultMap = new HashMap<>();
+        long startTime = System.currentTimeMillis();
+        String formatTimeStamp = DateUtils.formatTimeStamp(startTime);
+        String statusCode = null;
+        String body = null;
+        try (
+                CloseableHttpClient client = createHttpClient(requestDefinition.getTimeout());
+                CloseableHttpResponse response = sendRequest(client, requestDefinition)) {
+            statusCode = String.valueOf(getStatusCode(response));
+            body = getResponseBody(response);
+            long costTime = System.currentTimeMillis() - startTime;
+            log.info(
+                    "testHttpRequest startTime: {}, httpUrl: {}, httpMethod: {}, costTime : {} milliseconds, statusCode : {}, body : {}, log",
+                    formatTimeStamp, requestDefinition.getUrl(),
+                    requestDefinition.getHttpMethod(), costTime, statusCode, body);
+            resultMap.put("httpCode", statusCode);
+            resultMap.put("response", StringUtils.isEmpty(body) && !JSONUtils.checkJsonValid(body) ? body : JSONUtils.parseObject(body, Map.class));
+        } catch (Exception e) {
+            log.error("testHttpRequest httpUrl[" + requestDefinition.getUrl() + "] connection failed：" + body, e);
+            resultMap.put("httpCode", "500");
+            resultMap.put("response", e.getMessage());
+        }
+
+        return resultMap;
+    }
+
+    /**
+     * send request
+     *
+     * @param client client
+     * @return CloseableHttpResponse
+     * @throws IOException io exception
+     */
+    protected CloseableHttpResponse sendRequest(CloseableHttpClient client, ConnectionCreateRequest createRequest) throws IOException {
+        RequestBuilder builder = createRequestBuilder(createRequest.getHttpMethod());
+
+        addRequestParams(builder, createRequest.getHttpParams(), createRequest.getHttpBody());
+        String requestUrl = createRequest.getUrl();
+        HttpUriRequest request = builder.setUri(requestUrl).build();
+        setHeaders(request, createRequest.getHttpParams());
+        return client.execute(request);
+    }
+
+    /**
+     * set headers
+     *
+     * @param request request
+     * @param httpPropertyList http property list
+     */
+    protected void setHeaders(HttpUriRequest request, List<ConnectionCreateRequest.HttpParam> httpPropertyList) {
+        if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(httpPropertyList)) {
+            for (ConnectionCreateRequest.HttpParam property : httpPropertyList) {
+                if ("HEADER".equals(property.getHttpParametersType())) {
+                    request.addHeader(property.getProp(), property.getValue());
+                }
+            }
+        }
+    }
+
+    /**
+     * create http client
+     *
+     * @return CloseableHttpClient
+     */
+    protected CloseableHttpClient createHttpClient(int timeout) {
+        final RequestConfig requestConfig = requestConfig(timeout);
+        HttpClientBuilder httpClientBuilder;
+        httpClientBuilder = HttpClients.custom().setDefaultRequestConfig(requestConfig);
+        return httpClientBuilder.build();
+    }
+
+    /**
+     * request config
+     *
+     * @return RequestConfig
+     */
+    private RequestConfig requestConfig(int timeout) {
+        return RequestConfig.custom().setSocketTimeout(timeout)
+                .setConnectTimeout(timeout).build();
+    }
+
+    /**
+     * create request builder
+     *
+     * @return RequestBuilder
+     */
+    protected RequestBuilder createRequestBuilder(HttpMethod httpMethod) {
+        if (httpMethod == HttpMethod.GET) {
+            return RequestBuilder.get();
+        } else if (httpMethod == HttpMethod.POST) {
+            return RequestBuilder.post();
+        } else if (httpMethod == HttpMethod.HEAD) {
+            return RequestBuilder.head();
+        } else if (httpMethod == HttpMethod.PUT) {
+            return RequestBuilder.put();
+        } else if (httpMethod == HttpMethod.DELETE) {
+            return RequestBuilder.delete();
+        } else {
+            return null;
+        }
+
+    }
+
+    /**
+     * add request params
+     *
+     * @param builder buidler
+     * @param httpParamList http param list
+     * @param httpBodyMap http body map
+     */
+    protected void addRequestParams(RequestBuilder builder, List<ConnectionCreateRequest.HttpParam> httpParamList, Map<String, Object> httpBodyMap) {
+        if (httpBodyMap != null && !httpBodyMap.isEmpty()) {
+            builder.setEntity(new StringEntity(
+                    JSONUtils.toJsonString(httpBodyMap),
+                    ContentType.create(ContentType.APPLICATION_JSON.getMimeType(),
+                            StandardCharsets.UTF_8)));
+        }
+
+        if (!CollectionUtils.isEmpty(httpParamList)) {
+            ObjectNode jsonParam = JSONUtils.createObjectNode();
+            for (ConnectionCreateRequest.HttpParam property : httpParamList) {
+                if (property.getHttpParametersType() != null) {
+                    if (property.getHttpParametersType().equals("PARAMETER")) {
+                        builder.addParameter(property.getProp(), property.getValue());
+                    }
+                }
+            }
+            if (builder.getEntity() == null) {
+                builder.setEntity(new StringEntity(
+                        jsonParam.toString(),
+                        ContentType.create(ContentType.APPLICATION_JSON.getMimeType(),
+                                StandardCharsets.UTF_8)));
+            }
+        }
+    }
+
+    /**
+     * get response body
+     *
+     * @param httpResponse http response
+     * @return response body
+     * @throws ParseException parse exception
+     * @throws IOException io exception
+     */
+    protected String getResponseBody(CloseableHttpResponse httpResponse) throws ParseException, IOException {
+        if (httpResponse == null) {
+            return null;
+        }
+        HttpEntity entity = httpResponse.getEntity();
+        if (entity == null) {
+            return null;
+        }
+        return EntityUtils.toString(entity, StandardCharsets.UTF_8.name());
+    }
+
+    /**
+     * get status code
+     *
+     * @param httpResponse http response
+     * @return status code
+     */
+    protected int getStatusCode(CloseableHttpResponse httpResponse) {
+        return httpResponse.getStatusLine().getStatusCode();
     }
 }

@@ -24,6 +24,7 @@ public enum HttpContentType {
     /**
      * 0 form-data
      * 1 x-www-form-urlencoded
+     * 2 raw
      */
-    FORM_DATA, X_WWW_FORM_URLENCODED
+    FORM_DATA, X_WWW_FORM_URLENCODED, RAW
 }
