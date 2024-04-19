@@ -44,23 +44,23 @@ public class MasterServerLoadProtection {
         if (!enabled) {
             return false;
         }
-        if (systemMetrics.getTotalCpuUsedPercentage() > maxCpuUsagePercentageThresholds) {
-            log.info(
-                    "Master OverLoad: the TotalCpuUsedPercentage: {} is over then the MaxCpuUsagePercentageThresholds {}",
-                    systemMetrics.getTotalCpuUsedPercentage(), maxCpuUsagePercentageThresholds);
-            return true;
-        }
-        if (systemMetrics.getJvmMemoryUsedPercentage() > maxJVMMemoryUsagePercentageThresholds) {
-            log.info(
-                    "Master OverLoad: the JvmMemoryUsedPercentage: {} is over then the MaxJVMMemoryUsagePercentageThresholds {}",
-                    systemMetrics.getJvmMemoryUsedPercentage(), maxCpuUsagePercentageThresholds);
-            return true;
-        }
-        if (systemMetrics.getDiskUsedPercentage() > maxDiskUsagePercentageThresholds) {
-            log.info("Master OverLoad: the DiskUsedPercentage: {} is over then the MaxDiskUsagePercentageThresholds {}",
-                    systemMetrics.getDiskUsedPercentage(), maxCpuUsagePercentageThresholds);
-            return true;
-        }
+//        if (systemMetrics.getTotalCpuUsedPercentage() > maxCpuUsagePercentageThresholds) {
+//            log.info(
+//                    "Master OverLoad: the TotalCpuUsedPercentage: {} is over then the MaxCpuUsagePercentageThresholds {}",
+//                    systemMetrics.getTotalCpuUsedPercentage(), maxCpuUsagePercentageThresholds);
+//            return true;
+//        }
+//        if (systemMetrics.getJvmMemoryUsedPercentage() > maxJVMMemoryUsagePercentageThresholds) {
+//            log.info(
+//                    "Master OverLoad: the JvmMemoryUsedPercentage: {} is over then the MaxJVMMemoryUsagePercentageThresholds {}",
+//                    systemMetrics.getJvmMemoryUsedPercentage(), maxCpuUsagePercentageThresholds);
+//            return true;
+//        }
+//        if (systemMetrics.getDiskUsedPercentage() > maxDiskUsagePercentageThresholds) {
+//            log.info("Master OverLoad: the DiskUsedPercentage: {} is over then the MaxDiskUsagePercentageThresholds {}",
+//                    systemMetrics.getDiskUsedPercentage(), maxCpuUsagePercentageThresholds);
+//            return true;
+//        }
 //        if (systemMetrics.getSystemMemoryUsedPercentage() > maxSystemMemoryUsagePercentageThresholds) {
 //            log.info(
 //                    "Master OverLoad: the SystemMemoryUsedPercentage: {} is over then the MaxSystemMemoryUsagePercentageThresholds {}",
