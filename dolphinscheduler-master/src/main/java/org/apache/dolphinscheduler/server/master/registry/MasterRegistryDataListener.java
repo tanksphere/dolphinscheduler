@@ -58,7 +58,8 @@ public class MasterRegistryDataListener implements SubscribeListener {
                 log.info("master node added : {}", path);
                 break;
             case REMOVE:
-                masterRegistryClient.removeMasterNodePath(path, RegistryNodeType.MASTER, true);
+//                masterRegistryClient.removeMasterNodePath(path, RegistryNodeType.MASTER, true);
+                masterRegistryClient.removeMasterNodePath(path, RegistryNodeType.MASTER, false);
 
                 break;
             default:

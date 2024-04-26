@@ -41,6 +41,10 @@ public class TaskDefinitionLog extends TaskDefinition {
         super();
     }
 
+    public TaskDefinitionLog(long code, int version) {
+        super(code, version);
+    }
+
     public TaskDefinitionLog(TaskDefinition taskDefinition) {
         super();
         this.setCode(taskDefinition.getCode());

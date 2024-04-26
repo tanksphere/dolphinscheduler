@@ -116,7 +116,7 @@ public class MasterServer implements IStoppable {
         this.masterSchedulerBootstrap.start();
 
         this.eventExecuteService.start();
-        this.failoverExecuteThread.start();
+//        this.failoverExecuteThread.start();
 
         this.schedulerApi.start();
         this.taskGroupCoordinator.start();

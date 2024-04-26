@@ -114,6 +114,7 @@ class DynamicLogicTaskTest {
         Mockito.when(taskExecutionContext.getPrepareParamsMap()).thenReturn(new HashMap<>());
         Mockito.when(taskExecutionContext.getTaskParams())
                 .thenReturn(objectMapper.writeValueAsString(dynamicParameters));
+        taskExecutionContext.setTaskParams(objectMapper.writeValueAsString(dynamicParameters));
 
         dynamicLogicTask = new DynamicLogicTask(
                 taskExecutionContext,
