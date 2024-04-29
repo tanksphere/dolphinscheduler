@@ -761,6 +761,7 @@ public class ProcessServiceImpl implements ProcessService {
         switch (commandType) {
             case START_PROCESS:
             case DYNAMIC_GENERATION:
+            case FORR_GENERATION:
                 break;
             case START_FAILURE_TASK_PROCESS:
             case RECOVER_SUSPENDED_PROCESS:

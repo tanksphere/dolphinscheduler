@@ -21,6 +21,7 @@ import org.apache.dolphinscheduler.server.master.runner.task.blocking.BlockingLo
 import org.apache.dolphinscheduler.server.master.runner.task.condition.ConditionLogicTask;
 import org.apache.dolphinscheduler.server.master.runner.task.dependent.DependentLogicTask;
 import org.apache.dolphinscheduler.server.master.runner.task.dynamic.DynamicLogicTask;
+import org.apache.dolphinscheduler.server.master.runner.task.forr.ForrLogicTask;
 import org.apache.dolphinscheduler.server.master.runner.task.subworkflow.SubWorkflowLogicTask;
 import org.apache.dolphinscheduler.server.master.runner.task.switchtask.SwitchLogicTask;
 
@@ -40,7 +41,8 @@ public class TaskUtils {
             DependentLogicTask.TASK_TYPE,
             SubWorkflowLogicTask.TASK_TYPE,
             SwitchLogicTask.TASK_TYPE,
-            DynamicLogicTask.TASK_TYPE);
+            DynamicLogicTask.TASK_TYPE,
+            ForrLogicTask.TASK_TYPE);
 
     public boolean isMasterTask(String taskType) {
         return MASTER_TASK_TYPES.contains(taskType);

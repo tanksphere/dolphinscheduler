@@ -42,6 +42,7 @@ task:
     - 'CONDITIONS'
     - 'SWITCH'
     - 'DYNAMIC'
+    - 'FORR'
   dataIntegration:
     - 'SEATUNNEL'
     - 'DATAX'

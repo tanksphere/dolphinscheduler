@@ -24,6 +24,7 @@ type TaskType =
   | 'SHELL'
   | 'SUB_PROCESS'
   | 'DYNAMIC'
+  | 'FORR'
   | 'PROCEDURE'
   | 'SQL'
   | 'SPARK'
