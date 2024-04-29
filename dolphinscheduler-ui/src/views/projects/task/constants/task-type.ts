@@ -18,6 +18,7 @@ export type TaskType =
   | 'SHELL'
   | 'SUB_PROCESS'
   | 'DYNAMIC'
+  | 'FORR'
   | 'PROCEDURE'
   | 'SQL'
   | 'SPARK'
@@ -69,6 +70,9 @@ export const TASK_TYPES_MAP = {
   },
   DYNAMIC: {
     alias: 'DYNAMIC'
+  },
+  FORR: {
+    alias: 'FORR'
   },
   PROCEDURE: {
     alias: 'PROCEDURE'

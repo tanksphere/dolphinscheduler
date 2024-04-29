@@ -47,17 +47,17 @@ public class MailUtilsTest {
     @BeforeAll
     public static void initEmailConfig() {
         emailConfig.put(MailParamsConstants.NAME_MAIL_PROTOCOL, "smtp");
-        emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_HOST, "xxx.xxx.com");
-        emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_PORT, "25");
-        emailConfig.put(MailParamsConstants.NAME_MAIL_SENDER, "xxx1.xxx.com");
-        emailConfig.put(MailParamsConstants.NAME_MAIL_USER, "xxx2.xxx.com");
-        emailConfig.put(MailParamsConstants.NAME_MAIL_PASSWD, "111111");
+        emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_HOST, "smtp.163.com");
+        emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_PORT, "465");
+        emailConfig.put(MailParamsConstants.NAME_MAIL_SENDER, "mycommonkit@163.com");
+        emailConfig.put(MailParamsConstants.NAME_MAIL_USER, "mycommonkit@163.com");
+        emailConfig.put(MailParamsConstants.NAME_MAIL_PASSWD, "RNVEBAHEHLSRRRBA");
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_AUTH, "true");
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_STARTTLS_ENABLE, "true");
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_SSL_ENABLE, "false");
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_SSL_TRUST, "false");
-        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERS, "347801120@qq.com");
-        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERCCS, "347801120@qq.com");
+        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERS, "jlfang2018@163.com");
+//        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERCCS, "347801120@qq.com");
         emailConfig.put(AlertConstants.NAME_SHOW_TYPE, ShowType.TEXT.getDescp());
         alertTemplate = new DefaultHTMLTemplate();
         mailSender = new MailSender(emailConfig);

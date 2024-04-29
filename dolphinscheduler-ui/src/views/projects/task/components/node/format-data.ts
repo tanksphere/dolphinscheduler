@@ -505,6 +505,14 @@ export function formatParams(data: INodeData): {
     taskParams.listParameters = data.listParameters
   }
 
+  if (data.taskType === 'FORR') {
+    taskParams.processDefinitionCode = data.processDefinitionCode
+    taskParams.maxNumOfSubWorkflowInstances = data.maxNumOfSubWorkflowInstances
+    taskParams.degreeOfParallelism = data.degreeOfParallelism
+    taskParams.filterCondition = data.filterCondition
+    taskParams.listParameters = data.listParameters
+  }
+
   let timeoutNotifyStrategy = ''
   if (data.timeoutNotifyStrategy) {
     if (data.timeoutNotifyStrategy.length === 1) {

@@ -57,6 +57,7 @@ public enum CommandType {
     RECOVER_SERIAL_WAIT(11, "recover serial wait"),
     EXECUTE_TASK(12, "start a task node in a process instance"),
     DYNAMIC_GENERATION(13, "dynamic generation"),
+    FORR_GENERATION(14, "forr generation"),
     ;
 
     CommandType(int code, String descp) {

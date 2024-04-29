@@ -19,6 +19,7 @@ package org.apache.dolphinscheduler.server.master.runner.execute;
 
 import org.apache.dolphinscheduler.server.master.runner.task.dependent.DependentLogicTask;
 import org.apache.dolphinscheduler.server.master.runner.task.dynamic.DynamicLogicTask;
+import org.apache.dolphinscheduler.server.master.runner.task.forr.ForrLogicTask;
 import org.apache.dolphinscheduler.server.master.runner.task.subworkflow.SubWorkflowLogicTask;
 
 import java.util.Set;
@@ -43,7 +44,8 @@ public class MasterTaskExecutorFactoryBuilder {
     private static final Set<String> ASYNC_TASK_TYPE = Sets.newHashSet(
             DependentLogicTask.TASK_TYPE,
             SubWorkflowLogicTask.TASK_TYPE,
-            DynamicLogicTask.TASK_TYPE);
+            DynamicLogicTask.TASK_TYPE,
+            ForrLogicTask.TASK_TYPE);
 
     public MasterTaskExecutorFactory<? extends MasterTaskExecutor> createMasterTaskExecutorFactory(String taskType) {
         if (ASYNC_TASK_TYPE.contains(taskType)) {

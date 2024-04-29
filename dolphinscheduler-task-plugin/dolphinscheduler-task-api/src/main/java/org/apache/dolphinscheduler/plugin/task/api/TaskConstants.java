@@ -370,6 +370,8 @@ public class TaskConstants {
 
     public static final String TASK_TYPE_DYNAMIC = "DYNAMIC";
 
+    public static final String TASK_TYPE_FORR = "FORR";
+
     public static final String TASK_TYPE_DEPENDENT = "DEPENDENT";
 
     public static final String TASK_TYPE_SQL = "SQL";

@@ -28,6 +28,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface SubWorkflowService {
 
+    List<ProcessInstance> getAllForrSubWorkflow(long processInstanceId, long taskCode);
+
     List<ProcessInstance> getAllDynamicSubWorkflow(long processInstanceId, long taskCode);
 
     int batchInsertRelationSubWorkflow(List<RelationSubWorkflow> relationSubWorkflowList);

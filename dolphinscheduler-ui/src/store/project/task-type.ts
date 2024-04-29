@@ -35,6 +35,9 @@ export const TASK_TYPES_MAP = {
   DYNAMIC: {
     alias: 'DYNAMIC'
   },
+  FORR: {
+    alias: 'FORR'
+  },
   PROCEDURE: {
     alias: 'PROCEDURE'
   },

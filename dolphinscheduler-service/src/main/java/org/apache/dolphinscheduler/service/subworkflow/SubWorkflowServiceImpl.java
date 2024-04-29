@@ -49,6 +49,18 @@ public class SubWorkflowServiceImpl implements SubWorkflowService {
     private ProcessDefinitionLogMapper processDefinitionLogMapper;
 
     @Override
+    public List<ProcessInstance> getAllForrSubWorkflow(long processInstanceId, long taskCode) {
+        List<RelationSubWorkflow> relationSubWorkflows =
+                relationSubWorkflowMapper.queryAllSubProcessInstance(processInstanceId, taskCode);
+        List<Long> allSubProcessInstanceId = relationSubWorkflows.stream()
+                .map(RelationSubWorkflow::getSubWorkflowInstanceId).collect(Collectors.toList());
+
+        List<ProcessInstance> allSubProcessInstance = processInstanceDao.queryByIds(allSubProcessInstanceId);
+        allSubProcessInstance.sort(Comparator.comparing(ProcessInstance::getId));
+        return allSubProcessInstance;
+    }
+
+    @Override
     public List<ProcessInstance> getAllDynamicSubWorkflow(long processInstanceId, long taskCode) {
         List<RelationSubWorkflow> relationSubWorkflows =
                 relationSubWorkflowMapper.queryAllSubProcessInstance(processInstanceId, taskCode);
