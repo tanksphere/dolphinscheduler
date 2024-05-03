@@ -46,6 +46,7 @@ import {
   ContainerOutlined,
   ApartmentOutlined,
   BarsOutlined,
+  ApiOutlined,
   CloudServerOutlined,
   ClusterOutlined
 } from '@vicons/antd'
@@ -175,6 +176,11 @@ export function useDataList() {
         key: 'resource',
         icon: renderIcon(FolderOutlined),
         children: [
+          {
+            label: t('menu.connection_manage'),
+            key: '/resource/connection-manage',
+            icon: renderIcon(ApiOutlined)
+          },
           {
             label: t('menu.file_manage'),
             key: '/resource/file-manage',

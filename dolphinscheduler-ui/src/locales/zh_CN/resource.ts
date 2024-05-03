@@ -16,6 +16,30 @@
  */
 
 export default {
+  connection: {
+    connection_manage: '连接管理',
+    create_connection: '创建连接',
+    edit_connection: '编辑连接',
+    enter_name_tips: '请输入名称',
+    connection_details: '连接详情',
+    connection_name: '连接名称',
+    connection_url: '连接地址',
+    enter_url_tips: '请输入连接地址',
+    http_header: 'Headers',
+    http_method: '请求方式',
+    time_out: '超时时长',
+    second: '秒',
+    http_params: 'Params',
+    http_content_type: 'Body',
+    request_data_format: '数据格式',
+    http_raw_body: 'RawContent',
+    http_form_params: 'FormParams',
+    response_body: 'ResponseBody',
+    response_headers: 'ResponseHeaders',
+    response_cookie: 'ResponseCookie',
+    test: '发送请求',
+    save: '保存',
+  },
   file: {
     file_manage: '文件管理',
     create_folder: '创建文件夹',

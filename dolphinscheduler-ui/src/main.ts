@@ -20,6 +20,8 @@ import App from './App'
 import router from './router'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import JsonEditorVue from 'json-editor-vue3'
+import 'jsoneditor'
 import i18n from '@/locales'
 import * as echarts from 'echarts'
 import 'echarts/theme/macarons'
@@ -35,6 +37,7 @@ pinia.use(piniaPluginPersistedstate)
 app.config.globalProperties.echarts = echarts
 app.config.globalProperties.trim = trim
 
+app.use(JsonEditorVue)
 app.use(router)
 app.use(pinia)
 app.use(i18n)

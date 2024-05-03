@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { axios } from '@/service/service'
+import {axios, axiosOriginal} from '@/service/service'
 import utils from '@/utils'
 import {
   ResourceTypeReq,
@@ -34,6 +34,7 @@ import {
   ViewResourceReq,
   UdfFuncReq
 } from './types'
+import {ICreateConnectionDefaultValue} from "@/views/resource/connection/types";
 
 export function queryResourceListPaging(
   params: ListReq & ResourceTypeReq & FullNameReq & TenantCodeReq
@@ -133,6 +134,44 @@ export function onlineCreateResource(
     url: '/resources/online-create',
     method: 'post',
     data
+  })
+}
+
+export function onlineCreateConnection(
+    data: ICreateConnectionDefaultValue
+): any {
+  return axiosOriginal({
+    url: '/connections/definition/save',
+    method: 'post',
+    data
+  })
+}
+export function onlineTestConnection(
+    data: ICreateConnectionDefaultValue
+): any {
+  return axiosOriginal({
+    url: '/connections/definition/test',
+    method: 'post',
+    data
+  })
+}
+
+export function queryConnectionListPaging(
+    params: ListReq
+): any {
+  return axios({
+    url: '/connections/definition/queryList',
+    // url: '/connections/definition/queryListPaging',
+    method: 'get',
+    params
+  })
+}
+export function queryConnectionListAll(): any {
+  return axios({
+    url: '/connections/definition/queryList',
+    // url: '/connections/definition/queryListPaging',
+    method: 'get'
+    // params
   })
 }
 

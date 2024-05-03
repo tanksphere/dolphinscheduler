@@ -16,6 +16,30 @@
  */
 
 export default {
+  connection: {
+    connection_manage: 'Connection Manage',
+    create_connection: 'Create Connection',
+    edit_connection: 'Edit Connection',
+    enter_name_tips: 'Please enter keyword',
+    connection_details: 'Connection Detail',
+    connection_name: 'Connection Name',
+    connection_url: 'Connection Url',
+    enter_url_tips: 'Please enter keyword',
+    http_header: 'Headers',
+    http_method: 'Http Method',
+    time_out: 'Timeout',
+    second: 'second',
+    http_params: 'Params',
+    http_content_type: 'Body',
+    request_data_format: 'Data Format',
+    http_raw_body: 'RawContent',
+    http_form_params: 'FormParams',
+    response_body: 'ResponseBody',
+    response_headers: 'ResponseHeaders',
+    response_cookie: 'ResponseCookie',
+    test: 'Send Request',
+    save: 'Save',
+  },
   file: {
     file_manage: 'File Manage',
     create_folder: 'Create Folder',

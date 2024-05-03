@@ -36,6 +36,7 @@ export default {
   task_definition: '任务定义',
   file_manage: '文件管理',
   udf_manage: 'UDF管理',
+  connection_manage: '连接管理',
   resource_manage: '资源管理',
   function_manage: '函数管理',
   service_manage: '服务管理',

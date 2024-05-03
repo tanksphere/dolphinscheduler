@@ -25,10 +25,45 @@ const components: { [key: string]: Component } = utils.mapping(modules)
 export default {
   path: '/resource',
   name: 'resource',
-  redirect: { name: 'file-manage' },
+  redirect: { name: 'connection-manage' },
   meta: { title: '资源中心' },
   component: () => import('@/layouts/content'),
   children: [
+    {
+      path: '/resource/connection-manage',
+      name: 'connection-manage',
+      component: components['resource-connection'],
+      meta: {
+        title: '连接管理',
+        activeMenu: 'resource',
+        showSide: true,
+        auth: []
+      }
+    },
+    {
+      path: '/resource/connection/create',
+      name: 'resource-connection-create',
+      component: components['resource-connection-create'],
+      meta: {
+        title: '连接创建',
+        activeMenu: 'resource',
+        activeSide: '/resource/connection-manage',
+        showSide: true,
+        auth: []
+      }
+    },
+    {
+      path: '/resource/connection/edit',
+      name: 'resource-connection-edit',
+      component: components['resource-connection-edit'],
+      meta: {
+        title: '连接编辑',
+        activeMenu: 'resource',
+        activeSide: '/resource/connection-manage',
+        showSide: true,
+        auth: []
+      }
+    },
     {
       path: '/resource/file-manage',
       name: 'file-manage',

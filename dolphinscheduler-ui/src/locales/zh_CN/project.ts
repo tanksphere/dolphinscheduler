@@ -483,6 +483,7 @@ export default {
       '如果存在大量任务需要补数时,可以利用自定义并行度将补数的任务线程设置成合理的数值,避免对服务器造成过大的影响',
     task_manager_number: 'TaskManager数量',
     task_manager_number_tips: '请输入TaskManager数量',
+    connection_select: '选择已有连接',
     http_url: '请求地址',
     http_url_tips: '请填写请求地址(必填)',
     http_url_validator: '请求地址需包含http或者https',

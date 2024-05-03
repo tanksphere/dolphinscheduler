@@ -114,6 +114,44 @@ interface ResourceListRes {
   totalList: ResourceFile[]
 }
 
+interface ConnectionListRes {
+  currentPage: number
+  pageSize: number
+  start: number
+  total: number
+  totalList: ConnectionData[]
+}
+export interface ConnectionData {
+  id: number,
+  name: string,
+  url: string,
+  httpMethod: string,
+  httpContentType: string,
+  requestDataFormat: string,
+  httpParams: [
+    // {
+    //   prop: string,
+    //   httpParametersType: string,
+    //   value: string
+    // }
+  ],
+  httpBody: {
+    // additionalProp1: {},
+    // additionalProp2: {},
+    // additionalProp3: {}
+  },
+  httpCheckCondition: string,
+  description: string,
+  envList: [
+    // {
+    //   domain: string,
+    //   env: string,
+    //   connectionDefinitionId: number
+    // }
+  ],
+  timeout: number
+}
+
 interface ResourceViewRes {
   alias: string
   content: string
@@ -138,6 +176,7 @@ export {
   ViewResourceReq,
   UdfFuncReq,
   ResourceListRes,
+  ConnectionListRes,
   ResourceViewRes,
   ResourceFile
 }

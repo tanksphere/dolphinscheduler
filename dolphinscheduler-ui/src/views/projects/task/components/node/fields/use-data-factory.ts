@@ -95,6 +95,7 @@ export function useDataFactory(model: { [field: string]: any }): IJsonItem[] {
     getResourceGroupName()
   })
 
+  // 参考
   return [
     {
       type: 'select',

@@ -493,6 +493,7 @@ export default {
       'set the complement task thread to a reasonable value to avoid too large impact on the server.',
     task_manager_number: 'TaskManager Number',
     task_manager_number_tips: 'Please enter TaskManager number',
+    connection_select: 'Select Connection',
     http_url: 'Http Url',
     http_url_tips: 'Please Enter Http Url',
     http_url_validator: 'The request address must contain HTTP or HTTPS',

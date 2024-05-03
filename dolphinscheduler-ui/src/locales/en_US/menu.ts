@@ -33,6 +33,7 @@ export default {
   task: 'Task',
   task_instance: 'Task Instance',
   task_definition: 'Task Definition',
+  connection_manage: 'Connection Manage',
   file_manage: 'File Manage',
   udf_manage: 'UDF Manage',
   resource_manage: 'Resource Manage',

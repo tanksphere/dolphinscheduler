@@ -98,4 +98,38 @@ service.interceptors.response.use((res: AxiosResponse) => {
   }
 }, err)
 
-export { service as axios }
+const basePostRequestConfig: AxiosRequestConfig = {
+  baseURL:
+      import.meta.env.MODE === 'development'
+          ? '/dolphinscheduler'
+          : import.meta.env.VITE_APP_PROD_WEB_URL + '/dolphinscheduler',
+  timeout: uiSettingStore.getApiTimer ? uiSettingStore.getApiTimer : 20000,
+}
+
+const originalService = axios.create(basePostRequestConfig)
+
+originalService.interceptors.request.use((config: AxiosRequestConfig<any>) => {
+  config.headers = config.headers || {}
+  config.headers.sessionId = userStore.getSessionId
+  const language = cookies.get('language')
+  if (language) config.headers.language = language
+
+  return config
+}, err)
+
+// The response to intercept
+originalService.interceptors.response.use((res: AxiosResponse) => {
+  // No code will be processed
+  if (res.data.code === undefined) {
+    return res.data
+  }
+  switch (res.data.code) {
+    case 0:
+      return res.data.data
+    default:
+      handleError(res)
+      throw new Error()
+  }
+}, err)
+
+export { service as axios,originalService as axiosOriginal, }

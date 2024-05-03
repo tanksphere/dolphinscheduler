@@ -15,43 +15,68 @@
  * limitations under the License.
  */
 
-.content {
-  display: flex;
-  flex-wrap: wrap;
+.file-edit-content {
+  width: 100%;
+  padding-bottom: 20px;
 
-  .itemBox {
-    padding: 5px 14px;
-    border: 1px solid rgb(224, 224, 230);
-    width: 120px;
+  > h2 {
+    line-height: 60px;
     text-align: center;
-    cursor: pointer;
+    padding-right: 170px;
+    position: relative;
+  }
+}
 
-    &:hover {
-      color: #40a9ff;
-      border: 1px solid #40a9ff;
+.json-editor {
+  width: 600px;
+  height: 250px;
+}
+.json-editor-response {
+  width: 800px;
+  height: 460px;
+}
+
+.form-content {
+  padding: 0 50px 0 50px;
+}
+
+.submit {
+  text-align: left;
+  padding-top: 12px;
+  margin-left: 160px;
+}
+
+.table-box {
+  table {
+    width: 100%;
+
+    tr {
+      height: 40px;
+      font-size: 12px;
+
+      th,
+      td {
+        &:nth-child(1) {
+          width: 50px;
+          text-align: center;
+        }
+      }
+
+      th {
+        &:nth-child(1) {
+          width: 60px;
+          text-align: center;
+        }
+
+        > span {
+          font-size: 12px;
+          color: #555;
+        }
+      }
     }
   }
 }
 
-.typeBox {
-  display: flex;
-  //justify-content: space-between;
-  justify-content: space-around;
-  width: 100%;
-  padding: 5px 14px;
-  border: 1px solid rgb(224, 224, 230);
-
-  &:hover {
-    border: 1px solid #40a9ff;
-  }
-
-  .text-color {
-    color: #1890ff;
-    cursor: pointer;
-  }
-}
-
-.disabledBox {
-  pointer-events: none;
-  opacity: 0.5;
+.breadcrumb {
+  padding-left: 10px;
 }
