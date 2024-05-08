@@ -31,12 +31,14 @@ public interface ConnectionDefinitionMapper extends BaseMapper<ConnectionDefinit
 
     IPage<ConnectionDefinition> queryDefineListPaging(IPage<ConnectionDefinition> page,
                                                       @Param("searchVal") String searchVal,
-                                                      @Param("userId") int userId);
+                                                      @Param("tenantId") int tenantId);
 
-    List<ConnectionDefinition> queryDefineListByUserId(@Param("searchVal") String searchVal,
-                                                       @Param("userId") int userId);
+    List<ConnectionDefinition> queryDefineListByTenantId(@Param("searchVal") String searchVal,
+                                                       @Param("tenantId") int tenantId);
 
-    ConnectionDefinition selectByName(@Param("name") String name);
+    ConnectionDefinition selectByNameAndTenantId(@Param("name") String name, @Param("tenantId") int tenantId);
 
     int updateSelectiveById(@Param("et") ConnectionDefinition connectionDefinition);
+
+    ConnectionDefinition selectByIdAndTenantId(@Param("id") Integer id, @Param("tenantId") Integer tenantId);
 }

@@ -22,10 +22,10 @@ public class ConnectionDefinitionDaoImpl extends BaseDao<ConnectionDefinition, C
     }
 
     @Override
-    public PageListingResult<ConnectionDefinition> listingConnectionsDefinition(int pageNumber, int pageSize, @Nullable String searchVal, int userId) {
+    public PageListingResult<ConnectionDefinition> listingConnectionsDefinition(int pageNumber, int pageSize, @Nullable String searchVal, int tenantId) {
         Page<ConnectionDefinition> page = new Page<>(pageNumber, pageSize);
         IPage<ConnectionDefinition> connectionDefinitions =
-                mybatisMapper.queryDefineListPaging(page, searchVal, 0);
+                mybatisMapper.queryDefineListPaging(page, searchVal, tenantId);
 
         return PageListingResult.<ConnectionDefinition>builder()
                 .totalCount(connectionDefinitions.getTotal())
@@ -36,7 +36,7 @@ public class ConnectionDefinitionDaoImpl extends BaseDao<ConnectionDefinition, C
     }
 
     @Override
-    public List<ConnectionDefinition> queryByUserId(@Nullable String searchVal, int userId) {
-        return mybatisMapper.queryDefineListByUserId(searchVal, 0);
+    public List<ConnectionDefinition> queryByTenantId(@Nullable String searchVal, int tenantId) {
+        return mybatisMapper.queryDefineListByTenantId(searchVal, tenantId);
     }
 }

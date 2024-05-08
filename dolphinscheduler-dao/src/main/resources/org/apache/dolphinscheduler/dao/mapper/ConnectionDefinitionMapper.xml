@@ -19,8 +19,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.apache.dolphinscheduler.dao.mapper.ConnectionDefinitionMapper">
     <sql id="baseSql">
-        id, name, project_code, type, url, http_method, http_content_type, http_request_data_format, http_params, http_body,
-        http_check_condition, user_id, version, description, flag, timeout, create_time, update_time
+        id, name, type, url, http_method, http_content_type, http_request_data_format, http_params, http_body,
+        http_check_condition, tenant_id, user_id, version, description, flag, timeout, create_time, update_time
     </sql>
     <update id="updateSelectiveById">
         update t_ds_connection_definition
@@ -60,8 +60,8 @@
         <include refid="baseSql"/>
         FROM t_ds_connection_definition
         <where>
-            <if test=" userId != 0">
-                AND user_id = #{userId}
+            <if test=" tenantId != 0">
+                AND tenant_id = #{tenantId}
             </if>
             <if test=" searchVal != null and searchVal != ''">
                 AND (
@@ -71,14 +71,14 @@
         </where>
         order by update_time desc, id asc
     </select>
-    <select id="queryDefineListByUserId"
+    <select id="queryDefineListByTenantId"
             resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
         SELECT
         <include refid="baseSql"/>
         FROM t_ds_connection_definition
         <where>
-            <if test=" userId != 0">
-                AND user_id = #{userId}
+            <if test=" tenantId != 0">
+                AND tenant_id = #{tenantId}
             </if>
             <if test=" searchVal != null and searchVal != ''">
                 AND (
@@ -88,10 +88,15 @@
         </where>
         order by update_time desc, id asc
     </select>
-    <select id="selectByName" resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
+    <select id="selectByNameAndTenantId" resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
         select <include refid="baseSql" />
         from t_ds_connection_definition
-        where name = #{name}
+        where name = #{name} and tenant_id = #{tenantId}
+    </select>
+    <select id="selectByIdAndTenantId" resultType="org.apache.dolphinscheduler.dao.entity.ConnectionDefinition">
+        select <include refid="baseSql" />
+        from t_ds_connection_definition
+        where id = #{id} and tenant_id = #{tenantId}
     </select>
 
 </mapper>

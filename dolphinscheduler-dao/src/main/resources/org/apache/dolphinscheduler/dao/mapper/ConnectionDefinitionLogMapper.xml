@@ -19,7 +19,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.apache.dolphinscheduler.dao.mapper.ConnectionDefinitionLogMapper">
 <sql id="baseSql">
-    id, connection_definition_id, name, project_code, type, url, http_method, http_content_type, http_request_data_format,
+    id, connection_definition_id, name, type, url, http_method, http_content_type, http_request_data_format,
     http_params, http_body, http_check_condition, user_id, version, description, flag, timeout, create_time, update_time
 </sql>
 
