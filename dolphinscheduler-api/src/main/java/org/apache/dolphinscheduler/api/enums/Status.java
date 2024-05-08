@@ -594,6 +594,15 @@ public enum Status {
     CONNECTION_DEFINITION_UPDATE_ERROR(1501003, "connection definition name {0} update error", "连接定义名称[{0}]更新失败"),
 
     TEST_CONNECTION_DEFINITION_ERROR(1501004, "test process definition error", "测试连接错误"),
+
+    MENU_TREE_ERROR(1601000, "query menu tree error", "查询菜单树错误"),
+    USER_MENU_TREE_ERROR(1601001, "query menu tree error", "查询菜单错误"),
+
+    MENU_REPEAT_ERROR(1601002, "menu code repeat error", "菜单code重复错误"),
+
+    ROLE_REPEAT_ERROR(1601003, "role name repeat error", "角色名称重复错误"),
+
+    ROLE_INVALID_ERROR(1601004, "role not belong to tenant error", "存在无效角色"),
             ;
     private final int code;
     private final String enMsg;

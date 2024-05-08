@@ -15,24 +15,20 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.api.anno.field;
+package org.apache.dolphinscheduler.api.service;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.apache.dolphinscheduler.api.dto.menu.MenuItem;
+import org.apache.dolphinscheduler.api.dto.menu.MenuRequest;
+import org.apache.dolphinscheduler.dao.entity.Menu;
+import org.apache.dolphinscheduler.dao.entity.User;
 
-/**
- * @author tanksphere
- * @Description: 接口获取body参数注解
- * @date 2020/8/19 19:18
- */
-@Target(ElementType.PARAMETER)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Documented
-public @interface DolRequestBody {
-    boolean required() default true;
+import java.util.List;
+
+public interface MenuService {
+    List<MenuItem> createMenuTrees(User loginUser);
+    List<MenuItem> createUserMenuTrees(User loginUser);
+
+    Menu save(User loginUser, MenuRequest menuRequest);
+
+    List<MenuItem> queryMenuTreesByIds(List<Long> ids);
 }

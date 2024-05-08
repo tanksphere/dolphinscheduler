@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.apache.dolphinscheduler.dao.mapper.UserRoleMapper">
+  
+  <resultMap id="BaseResultMap" type="org.apache.dolphinscheduler.dao.entity.UserRole">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tenant_id" jdbcType="INTEGER" property="tenantId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="enabled" jdbcType="CHAR" property="enabled" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, tenant_id, user_id, role_id, enabled, create_user, create_time, update_user, 
+    update_time
+  </sql>
+  
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ds_user_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from t_ds_user_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="org.apache.dolphinscheduler.dao.entity.UserRole">
+    insert into t_ds_user_role (id, tenant_id, user_id, 
+      role_id, enabled, create_user, 
+      update_user
+      )
+    values (#{id,jdbcType=BIGINT}, #{tenantId,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT}, 
+      #{roleId,jdbcType=BIGINT}, #{enabled,jdbcType=CHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="org.apache.dolphinscheduler.dao.entity.UserRole">
+    insert into t_ds_user_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByIdSelective" parameterType="org.apache.dolphinscheduler.dao.entity.UserRole">
+    update t_ds_user_role
+    <set>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateById" parameterType="org.apache.dolphinscheduler.dao.entity.UserRole">
+    update t_ds_user_role
+    set tenant_id = #{tenantId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT},
+      role_id = #{roleId,jdbcType=BIGINT},
+      enabled = #{enabled,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+<!--  <sql id="Dynamic_Where_Clause">-->
+<!--    <where>-->
+<!--      <if test="ew.id != null and ew.id != ''">-->
+<!--        AND id = #{ew.id,jdbcType=BIGINT}-->
+<!--      </if>-->
+<!--      <if test="ew.tenantId != null and ew.tenantId != ''">-->
+<!--        AND tenant_id = #{ew.tenantId,jdbcType=INTEGER}-->
+<!--      </if>-->
+<!--      <if test="ew.userId != null and ew.userId != ''">-->
+<!--        AND user_id = #{ew.userId,jdbcType=BIGINT}-->
+<!--      </if>-->
+<!--      <if test="ew.roleId != null and ew.roleId != ''">-->
+<!--        AND role_id = #{ew.roleId,jdbcType=BIGINT}-->
+<!--      </if>-->
+<!--      <if test="ew.enabled != null and ew.enabled != ''">-->
+<!--        AND enabled = #{ew.enabled,jdbcType=CHAR}-->
+<!--      </if>-->
+<!--      <if test="ew.createUser != null and ew.createUser != ''">-->
+<!--        AND create_user = #{ew.createUser,jdbcType=VARCHAR}-->
+<!--      </if>-->
+<!--      <if test="ew.createTime != null and ew.createTime != ''">-->
+<!--        AND create_time = #{ew.createTime,jdbcType=TIMESTAMP}-->
+<!--      </if>-->
+<!--      <if test="ew.updateUser != null and ew.updateUser != ''">-->
+<!--        AND update_user = #{ew.updateUser,jdbcType=VARCHAR}-->
+<!--      </if>-->
+<!--      <if test="ew.updateTime != null and ew.updateTime != ''">-->
+<!--        AND update_time = #{ew.updateTime,jdbcType=TIMESTAMP}-->
+<!--      </if>-->
+<!--    </where>-->
+<!--  </sql>-->
+<!--  -->
+<!--  <select id="selectCount" resultType="java.lang.Integer">-->
+<!--    SELECT COUNT(1) FROM t_ds_user_role-->
+<!--    <include refid="Dynamic_Where_Clause" />-->
+<!--  </select>-->
+<!--  -->
+<!--  <select id="selectList" resultMap="BaseResultMap">-->
+<!--    SELECT -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    FROM t_ds_user_role-->
+<!--    <include refid="Dynamic_Where_Clause" />-->
+<!--&lt;!&ndash;    <if test="paging !=null and paging.offset >= 0 and paging.pageSize > 0">&ndash;&gt;-->
+<!--&lt;!&ndash;       limit ${paging.offset}, ${paging.pageSize} &ndash;&gt;-->
+<!--&lt;!&ndash;    </if>&ndash;&gt;-->
+<!--  </select>-->
+</mapper>

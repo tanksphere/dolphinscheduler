@@ -56,7 +56,7 @@ public class MailUtilsTest {
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_STARTTLS_ENABLE, "true");
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_SSL_ENABLE, "false");
         emailConfig.put(MailParamsConstants.NAME_MAIL_SMTP_SSL_TRUST, "false");
-        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERS, "jlfang2018@163.com");
+        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERS, "xxx@163.com");
 //        emailConfig.put(MailParamsConstants.NAME_PLUGIN_DEFAULT_EMAIL_RECEIVERCCS, "347801120@qq.com");
         emailConfig.put(AlertConstants.NAME_SHOW_TYPE, ShowType.TEXT.getDescp());
         alertTemplate = new DefaultHTMLTemplate();

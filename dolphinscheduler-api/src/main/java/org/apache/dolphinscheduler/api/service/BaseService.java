@@ -32,12 +32,24 @@ import java.util.Map;
 public interface BaseService {
 
     /**
+     * check super admin
+     *
+     * @param user input user
+     * @return ture if administrator, otherwise return false
+     */
+    boolean isSuperAdmin(User user);
+
+    void checkSuperAdminPermissions(User user);
+
+    /**
      * check admin
      *
      * @param user input user
      * @return ture if administrator, otherwise return false
      */
     boolean isAdmin(User user);
+
+    void checkAdminPermissions(User user);
 
     /**
      * isNotAdmin
