@@ -23,6 +23,7 @@ import org.apache.dolphinscheduler.api.permission.ResourcePermissionCheckService
 import org.apache.dolphinscheduler.api.service.BaseService;
 import org.apache.dolphinscheduler.api.utils.Result;
 import org.apache.dolphinscheduler.common.constants.Constants;
+import org.apache.dolphinscheduler.common.constants.TenantConstants;
 import org.apache.dolphinscheduler.common.enums.AuthorizationType;
 import org.apache.dolphinscheduler.common.enums.UserType;
 import org.apache.dolphinscheduler.common.utils.DateUtils;
@@ -55,8 +56,41 @@ public class BaseServiceImpl implements BaseService {
      * @return ture if administrator, otherwise return false
      */
     @Override
+    public boolean isSuperAdmin(User user) {
+        return user.getUserType() == UserType.ADMIN_USER && user.getTenantId() == -1;
+    }
+
+    @Override
+    public void checkSuperAdminPermissions(User user) {
+        if(!isSuperAdmin(user)) {
+            throw new ServiceException(Status.USER_NO_OPERATION_PERM);
+        }
+    }
+    public void checkSameTenant(User user, User loginUser) {
+        if (user == null || loginUser == null) {
+            throw new ServiceException(Status.USER_NO_OPERATION_PERM);
+        }
+        if (user.getTenantId() != loginUser.getTenantId()) {
+            throw new ServiceException(Status.USER_NO_OPERATION_PERM);
+        }
+    }
+
+    /**
+     * check admin
+     *
+     * @param user input user
+     * @return ture if administrator, otherwise return false
+     */
+    @Override
     public boolean isAdmin(User user) {
         return user.getUserType() == UserType.ADMIN_USER;
+    }
+
+    @Override
+    public void checkAdminPermissions(User user) {
+        if(!isAdmin(user)) {
+            throw new ServiceException(Status.USER_NO_OPERATION_PERM);
+        }
     }
 
     /**

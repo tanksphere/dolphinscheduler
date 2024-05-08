@@ -2,7 +2,7 @@ package org.apache.dolphinscheduler.plugin.alert.email;
 
 /**
  * @Description TODO
- * @Author fangjialiang
+ * @Author tanksphere
  * @Date 2024/4/28 17:58
  * @Verson 1.0
  **/

@@ -15,24 +15,29 @@
  * limitations under the License.
  */
 
-package org.apache.dolphinscheduler.api.anno.field;
+package org.apache.dolphinscheduler.api.dto.role;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * @author tanksphere
- * @Description: 接口获取body参数注解
- * @date 2020/8/19 19:18
- */
-@Target(ElementType.PARAMETER)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Documented
-public @interface DolRequestBody {
-    boolean required() default true;
+ * @Description 角色响应参数
+ * @Author tanksphere
+ * @Date 2024/5/7 15:57
+ * @Verson 1.0
+ **/
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(name = "ROLE")
+public class RoleResponse {
+    @Schema(required = true, description = "角色id")
+    private Long id;
+    @Schema(required = true, description = "角色名称")
+    private String name;
+    @Schema(required = true, description = "角色描述")
+    private String description;
 }
+

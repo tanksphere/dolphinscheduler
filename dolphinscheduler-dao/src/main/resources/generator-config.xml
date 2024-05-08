@@ -1,0 +1,94 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- mvn mybatis-generator:generate -->
+    <!--<classPathEntry  location="/Users/fangjialiang/.m2/repository/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar"/>-->
+	<context id="mysql" targetRuntime="MyBatis3">
+		<!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表； 一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 -->
+		<property name="autoDelimitKeywords" value="true" />
+		<property name="javaFileEncoding" value="UTF-8" />
+		<property name="javaFormatter"
+			value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<property name="xmlFormatter"
+			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+		<!-- Pagination -->
+		<plugin type="org.mybatis.generator.plugin.ext.impl.MysqlPaginationPlugin"></plugin>
+		<plugin type="org.mybatis.generator.plugin.ext.impl.EntityNullPlugin"></plugin>
+
+		<commentGenerator
+			type="org.mybatis.generator.plugin.ext.impl.CommentExtGenerator">
+			<property name="suppressAllComments" value="false" />
+			<property name="javaFileEncoding" value="UTF-8" />
+			<property name="suppressDate" value="false" />
+			<property name="addRemarkComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/dolphinscheduler?characterEncoding=utf8"
+			userId="dolphinscheduler" password="dolphinscheduler">
+			<property name="useInformationSchema" value="true" />
+			<property name="remarksReporting" value="true" />
+		</jdbcConnection>
+
+		<!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和
+			NUMERIC数据类型； -->
+		<javaTypeResolver
+			type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator
+			targetPackage="org.apache.dolphinscheduler.dao.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="org/apache/dolphinscheduler/dao/mapper" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="org.apache.dolphinscheduler.dao.mapper"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!--<table tableName="market_kfd_action_record" domainObjectName="MarketKfdActionRecord"/>
+		<table tableName="market_activity_his" domainObjectName="MarketActivityHis"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+		</table>-->
+		<table tableName="t_ds_role_menu_log" domainObjectName="RoleMenuLog"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="t_ds_user_role_log" domainObjectName="UserRoleLog"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+
+	</context>
+</generatorConfiguration>
+
+
+
+
+
+
+
+
+
+
+
+
+
