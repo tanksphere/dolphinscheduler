@@ -29,7 +29,7 @@ public interface ConnectionDefinitionDao extends IDao<ConnectionDefinition> {
                                                                   int pageNumber,
                                                                   int pageSize,
                                                                   @Nullable String searchVal,
-                                                                  int userId);
+                                                                  int tenantId);
 
-    List<ConnectionDefinition> queryByUserId(@Nullable String searchVal, int userId);
+    List<ConnectionDefinition> queryByTenantId(@Nullable String searchVal, int userId);
 }

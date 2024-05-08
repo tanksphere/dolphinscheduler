@@ -162,13 +162,13 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
                 log.warn("connection definition with the id does not exists, id:{}.", id);
                 throw new ServiceException(Status.CONNECTION_DEFINITION_NOT_EXIST, id);
             }
-            ConnectionDefinition byNameDefinition = connectionDefinitionMapper.selectByName(name);
+            ConnectionDefinition byNameDefinition = connectionDefinitionMapper.selectByNameAndTenantId(name, loginUser.getTenantId());
             if(byNameDefinition != null && byNameDefinition.getId() != id.intValue()) {
                 log.warn("connection definition with the same name already exists, connectionsDefinitionName:{}.", name);
                 throw new ServiceException(Status.CONNECTION_DEFINITION_NAME_EXIST, name);
             }
         } else {
-            ConnectionDefinition byNameDefinition = connectionDefinitionMapper.selectByName(name);
+            ConnectionDefinition byNameDefinition = connectionDefinitionMapper.selectByNameAndTenantId(name, loginUser.getTenantId());
             if(byNameDefinition != null) {
                 log.warn("connection definition with the same name already exists, connectionsDefinitionName:{}.", name);
                 throw new ServiceException(Status.CONNECTION_DEFINITION_NAME_EXIST, name);
@@ -186,10 +186,12 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
             definition.setHttpBody(httpBodyJson);
             definition.setHttpCheckCondition(httpCheckCondition);
             definition.setDescription(description);
+            definition.setUserId(loginUser.getId());
+            definition.setTenantId(loginUser.getTenantId());
             affectRow = connectionDefinitionMapper.updateSelectiveById(definition);
         } else {
             definition = new ConnectionDefinition(name, url, httpMethod, httpContentType, requestDataFormat, httpParams,
-                    httpBodyJson, httpCheckCondition, description);
+                    httpBodyJson, httpCheckCondition, loginUser.getId(), loginUser.getTenantId(), description);
             affectRow = connectionDefinitionMapper.insert(definition);
         }
         if(affectRow < 1) {
@@ -227,8 +229,7 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
 //        projectService.checkProjectAndAuthThrowException(loginUser, CONNECTIONS_DEFINITION);
         Result result = new Result();
         PageListingResult<ConnectionDefinition> connectionsDefinitionsPageListingResult =
-                connectionsDefinitionDao.listingConnectionsDefinition(
-                        pageNo, pageSize, searchVal, userId);
+                connectionsDefinitionDao.listingConnectionsDefinition(pageNo, pageSize, searchVal, loginUser.getTenantId());
         List<ConnectionDefinition> connectionsDefinitions = connectionsDefinitionsPageListingResult.getRecords();
 
         PageInfo<ConnectionDefinitionResponse> pageInfo = new PageInfo<>(pageNo, pageSize);
@@ -242,7 +243,8 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
     public Result queryById(User loginUser, Integer id) {
         Result result = new Result();
         putMsg(result, Status.SUCCESS);
-        ConnectionDefinition definition = connectionDefinitionMapper.selectById(id);
+//        ConnectionDefinition definition = connectionDefinitionMapper.selectById(id);
+        ConnectionDefinition definition = connectionDefinitionMapper.selectByIdAndTenantId(id, loginUser.getTenantId());
         if(definition == null) {
             return result;
         }
@@ -263,7 +265,7 @@ public class ConnectionDefinitionServiceImpl extends BaseServiceImpl implements 
                                                                       String searchVal,
                                                                       Integer userId) {
         Result result = new Result();
-        result.setData(connectionDefinitions2Resp(connectionsDefinitionDao.queryByUserId(searchVal, userId)));
+        result.setData(connectionDefinitions2Resp(connectionsDefinitionDao.queryByTenantId(searchVal, userId)));
         putMsg(result, Status.SUCCESS);
         return result;
     }

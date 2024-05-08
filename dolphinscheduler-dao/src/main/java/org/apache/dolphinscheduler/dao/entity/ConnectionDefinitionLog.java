@@ -53,17 +53,6 @@ public class ConnectionDefinitionLog {
      */
     private String name;
 
-    /**
-     * project code
-     */
-    private long projectCode;
-
-    /**
-     * project name
-     */
-    @TableField(exist = false)
-    private String projectName;
-
     private int type;
 
     private String url;
@@ -77,6 +66,8 @@ public class ConnectionDefinitionLog {
     private String httpBody;
 
     private String httpCheckCondition;
+
+    private int tenantId;
 
     /**
      * process user id

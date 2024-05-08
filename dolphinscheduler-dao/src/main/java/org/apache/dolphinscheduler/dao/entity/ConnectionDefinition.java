@@ -41,7 +41,7 @@ public class ConnectionDefinition {
 
     public ConnectionDefinition(String name, String url, HttpMethod httpMethod, HttpContentType httpContentType,
                                 HttpRequestDataFormat requestDataFormat, String httpParams,
-                                String httpBodyJson, String  httpCheckCondition, String description) {
+                                String httpBodyJson, String  httpCheckCondition, int userId, int tenantId, String description) {
         this.name = name;
         this.url = url;
         this.httpMethod = httpMethod;
@@ -51,6 +51,8 @@ public class ConnectionDefinition {
         this.httpBody = httpBodyJson;
         this.httpCheckCondition = httpCheckCondition;
         this.description = description;
+        this.userId = userId;
+        this.tenantId = tenantId;
     }
 
     /**
@@ -63,17 +65,6 @@ public class ConnectionDefinition {
      * name
      */
     private String name;
-
-    /**
-     * project code
-     */
-    private long projectCode;
-
-    /**
-     * project name
-     */
-    @TableField(exist = false)
-    private String projectName;
 
     private int type;
 
@@ -90,6 +81,8 @@ public class ConnectionDefinition {
     private String httpBody;
 
     private String httpCheckCondition;
+
+    private int tenantId;
 
     /**
      * process user id
