@@ -23,68 +23,68 @@ import {ConnectionData} from "@/service/modules/resources/types";
 
 export function useHttp(model: { [field: string]: any }): IJsonItem[] {
     const {t} = useI18n()
-    const connectionLoading = ref(false)
-    const connectionOptions = ref([] as { label: string; value: ConnectionData }[])
-    const getConnectionOptions = async () => {
-        if (connectionLoading.value) return
-        connectionLoading.value = true
-        const connectionList = await queryConnectionListAll()
-        connectionOptions.value = connectionList.map((connection: ConnectionData) => ({
-            label: connection.name,
-            value: connection
-        }))
-        connectionLoading.value = false
-    }
-    const onChange = () => {
-        if (model['connectionSelect']) {
-            model.url = model['connectionSelect'].url
-            model.httpMethod = model['connectionSelect'].httpMethod
-            /// 三种类型 Parameter、Body、Headers
-            let httpParams = []
-            if (model['connectionSelect'].httpHeader) {
-                for (let i = 0, length = model['connectionSelect'].httpHeader.length; i < length; i++) {
-                    const keyValueMap = model['connectionSelect'].httpHeader[i]
-                    httpParams.push({
-                        prop: keyValueMap['prop'],
-                        httpParametersType: 'Headers',
-                        value: keyValueMap['value']
-                    })
-                }
-            }
-            if (model['connectionSelect'].httpParams) {
-                for (let i = 0, length = model['connectionSelect'].httpParams.length; i < length; i++) {
-                    const keyValueMap = model['connectionSelect'].httpParams[i]
-                    httpParams.push({
-                        prop: keyValueMap['prop'],
-                        httpParametersType: 'Parameter',
-                        value: keyValueMap['value']
-                    })
-                }
-            }
-            if ((model['connectionSelect'].httpContentType == 'FORM-DATA' || model['connectionSelect'].httpContentType == 'X-WWW-FORM-URLENCODED') && model['connectionSelect'].formParams) {
-                for (let i = 0, length = model['connectionSelect'].formParams.length; i < length; i++) {
-                    const keyValueMap = model['connectionSelect'].formParams[i]
-                    httpParams.push({
-                        prop: keyValueMap['prop'],
-                        httpParametersType: 'Body',
-                        value: keyValueMap['value']
-                    })
-                }
-            }
-            model.httpParams = httpParams
-            if (model['connectionSelect'].httpBody) {
-                model.httpBody = JSON.stringify(model['connectionSelect'].httpBody)
-            }
-            if (model['connectionSelect'].timeout) {
-                model.connectTimeout = model['connectionSelect'].timeout * 1000
-                model.socketTimeout = model['connectionSelect'].timeout * 1000
-            }
-        }
-    }
-
-    onMounted(() => {
-        getConnectionOptions()
-    })
+    // const connectionLoading = ref(false)
+    // const connectionOptions = ref([] as { label: string; value: ConnectionData }[])
+    // const getConnectionOptions = async () => {
+    //     if (connectionLoading.value) return
+    //     connectionLoading.value = true
+    //     const connectionList = await queryConnectionListAll()
+    //     connectionOptions.value = connectionList.map((connection: ConnectionData) => ({
+    //         label: connection.name,
+    //         value: connection
+    //     }))
+    //     connectionLoading.value = false
+    // }
+    // const onChange = () => {
+    //     if (model['connectionSelect']) {
+    //         model.url = model['connectionSelect'].url
+    //         model.httpMethod = model['connectionSelect'].httpMethod
+    //         /// 三种类型 Parameter、Body、Headers
+    //         let httpParams = []
+    //         if (model['connectionSelect'].httpHeader) {
+    //             for (let i = 0, length = model['connectionSelect'].httpHeader.length; i < length; i++) {
+    //                 const keyValueMap = model['connectionSelect'].httpHeader[i]
+    //                 httpParams.push({
+    //                     prop: keyValueMap['prop'],
+    //                     httpParametersType: 'Headers',
+    //                     value: keyValueMap['value']
+    //                 })
+    //             }
+    //         }
+    //         if (model['connectionSelect'].httpParams) {
+    //             for (let i = 0, length = model['connectionSelect'].httpParams.length; i < length; i++) {
+    //                 const keyValueMap = model['connectionSelect'].httpParams[i]
+    //                 httpParams.push({
+    //                     prop: keyValueMap['prop'],
+    //                     httpParametersType: 'Parameter',
+    //                     value: keyValueMap['value']
+    //                 })
+    //             }
+    //         }
+    //         if ((model['connectionSelect'].httpContentType == 'FORM-DATA' || model['connectionSelect'].httpContentType == 'X-WWW-FORM-URLENCODED') && model['connectionSelect'].formParams) {
+    //             for (let i = 0, length = model['connectionSelect'].formParams.length; i < length; i++) {
+    //                 const keyValueMap = model['connectionSelect'].formParams[i]
+    //                 httpParams.push({
+    //                     prop: keyValueMap['prop'],
+    //                     httpParametersType: 'Body',
+    //                     value: keyValueMap['value']
+    //                 })
+    //             }
+    //         }
+    //         model.httpParams = httpParams
+    //         if (model['connectionSelect'].httpBody) {
+    //             model.httpBody = JSON.stringify(model['connectionSelect'].httpBody)
+    //         }
+    //         if (model['connectionSelect'].timeout) {
+    //             model.connectTimeout = model['connectionSelect'].timeout * 1000
+    //             model.socketTimeout = model['connectionSelect'].timeout * 1000
+    //         }
+    //     }
+    // }
+    //
+    // onMounted(() => {
+    //     getConnectionOptions()
+    // })
     const HTTP_CHECK_CONDITIONS = [
         {
             label: t('project.node.status_code_default'),
@@ -105,16 +105,16 @@ export function useHttp(model: { [field: string]: any }): IJsonItem[] {
     ]
 
     return [
-        {
-            type: 'select',
-            field: 'connectionSelect',
-            name: t('project.node.connection_select'),
-            options: connectionOptions,
-            props: {
-                'on-update:value': onChange,
-                loading: connectionLoading
-            }
-        },
+        // {
+        //     type: 'select',
+        //     field: 'connectionSelect',
+        //     name: t('project.node.connection_select'),
+        //     options: connectionOptions,
+        //     props: {
+        //         'on-update:value': onChange,
+        //         loading: connectionLoading
+        //     }
+        // },
         {
             type: 'input',
             class: 'input-url-name',
